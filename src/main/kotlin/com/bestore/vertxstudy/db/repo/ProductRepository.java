@@ -25,7 +25,7 @@ public interface ProductRepository {
    * @return 商品信息
    */
   @Fluent
-  ProductRepository findByid(Integer id, Handler<AsyncResult<JsonObject>> handler);
+  ProductRepository findById(Integer id, Handler<AsyncResult<JsonObject>> handler);
 
   static ProductRepository create(MySQLPool client) {
     return new ProductRepoImpl(client);

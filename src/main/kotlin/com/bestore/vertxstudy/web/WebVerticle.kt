@@ -16,7 +16,7 @@ class WebVerticle : AbstractVerticle() {
       .requestHandler { req ->
         log.info("receive req,resp hello world")
         val prodRepo = ProductRepository.createProxy(vertx)
-        prodRepo.findByid(2) {
+        prodRepo.findById(2) {
           if (it.succeeded()) {
             req.response()
               .putHeader("content-type", "text/plain")

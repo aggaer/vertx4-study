@@ -17,6 +17,7 @@ import io.vertx.kotlin.core.deploymentOptionsOf
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
+@Suppress("SpellCheckingInspection")
 class MainVerticle : AbstractVerticle() {
 
   override fun init(vertx: Vertx, context: Context) {
@@ -30,8 +31,9 @@ class MainVerticle : AbstractVerticle() {
       println("load main verticle")
       val config = loadConfigs().getConfigAwait()
       val deploymentOptions = deploymentOptionsOf(config)
-      vertx.deployVerticleAwait(DatabaseVerticle(), deploymentOptions)
-      vertx.deployVerticleAwait(WebVerticle(), deploymentOptions)
+        .setInstances(Runtime.getRuntime().availableProcessors())
+      vertx.deployVerticleAwait("com.bestore.vertxstudy.db.DatabaseVerticle", deploymentOptions)
+      vertx.deployVerticleAwait("com.bestore.vertxstudy.web.WebVerticle", deploymentOptions)
     }.invokeOnCompletion {
       if (it != null) startPromise.fail(it) else startPromise.complete()
     }
