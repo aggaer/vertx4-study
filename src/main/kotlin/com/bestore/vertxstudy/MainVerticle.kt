@@ -32,8 +32,8 @@ class MainVerticle : AbstractVerticle() {
       val config = loadConfigs().getConfigAwait()
       val deploymentOptions = deploymentOptionsOf(config)
         .setInstances(Runtime.getRuntime().availableProcessors())
-      vertx.deployVerticleAwait("com.bestore.vertxstudy.db.DatabaseVerticle", deploymentOptions)
-      vertx.deployVerticleAwait("com.bestore.vertxstudy.web.WebVerticle", deploymentOptions)
+      vertx.deployVerticleAwait(DatabaseVerticle::class.java.name, deploymentOptions)
+      vertx.deployVerticleAwait(WebVerticle::class.java.name, deploymentOptions)
     }.invokeOnCompletion {
       if (it != null) startPromise.fail(it) else startPromise.complete()
     }

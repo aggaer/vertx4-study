@@ -1,6 +1,7 @@
 package com.bestore.vertxstudy.db
 
-import com.bestore.vertxstudy.db.repo.ProductRepository
+import com.bestore.vertxstudy.db.repo.PosterScanRecordRepo
+import com.bestore.vertxstudy.db.repo.ProductRepo
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.Context
 import io.vertx.core.Vertx
@@ -27,7 +28,10 @@ class DatabaseVerticle : AbstractVerticle() {
   override fun start() {
     super.start()
     val serviceBinder = ServiceBinder(vertx)
-    serviceBinder.setAddress(ProductRepository::class.java.simpleName)
-      .register(ProductRepository::class.java, ProductRepository.create(client))
+    serviceBinder.setAddress(ProductRepo::class.java.simpleName)
+      .register(ProductRepo::class.java, ProductRepo.create(client))
+    serviceBinder.setAddress(PosterScanRecordRepo::class.java.simpleName)
+      .register(PosterScanRecordRepo::class.java, PosterScanRecordRepo.create(client))
+
   }
 }

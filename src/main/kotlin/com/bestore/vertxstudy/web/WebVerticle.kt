@@ -1,6 +1,6 @@
 package com.bestore.vertxstudy.web
 
-import com.bestore.vertxstudy.db.repo.ProductRepository
+import com.bestore.vertxstudy.db.repo.PosterScanRecordRepo
 import io.vertx.core.AbstractVerticle
 import org.slf4j.LoggerFactory
 import java.util.*
@@ -14,16 +14,17 @@ class WebVerticle : AbstractVerticle() {
     val port = serverConfig.getInteger("port")
     vertx.createHttpServer()
       .requestHandler { req ->
+        val sharingKey = req.getParam("sharing_key")
         log.info("receive req,resp hello world")
-        val prodRepo = ProductRepository.createProxy(vertx)
-        prodRepo.findById(2) {
+        val prodRepo = PosterScanRecordRepo.createProxy(vertx)
+        prodRepo.findById(sharingKey.toLong()) {
           if (it.succeeded()) {
             req.response()
-              .putHeader("content-type", "text/plain")
+              .putHeader("content-type", "application/json")
               .end(it.result().toBuffer())
           } else {
             req.response()
-              .putHeader("content-type", "text/plain")
+              .putHeader("content-type", "application/json")
               .end(it.cause().message)
           }
         }

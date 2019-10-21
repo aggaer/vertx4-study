@@ -16,7 +16,7 @@ import io.vertx.mysqlclient.MySQLPool;
  **/
 @VertxGen
 @ProxyGen
-public interface ProductRepository {
+public interface ProductRepo {
 
   /**
    * 通过商品id查询商品信息
@@ -25,13 +25,13 @@ public interface ProductRepository {
    * @return 商品信息
    */
   @Fluent
-  ProductRepository findById(Integer id, Handler<AsyncResult<JsonObject>> handler);
+  ProductRepo findById(Integer id, Handler<AsyncResult<JsonObject>> handler);
 
-  static ProductRepository create(MySQLPool client) {
+  static ProductRepo create(MySQLPool client) {
     return new ProductRepoImpl(client);
   }
 
-  static ProductRepository createProxy(Vertx vertx) {
-    return new ProductRepositoryVertxEBProxy(vertx, ProductRepository.class.getSimpleName());
+  static ProductRepo createProxy(Vertx vertx) {
+    return new ProductRepoVertxEBProxy(vertx, ProductRepo.class.getSimpleName());
   }
 }

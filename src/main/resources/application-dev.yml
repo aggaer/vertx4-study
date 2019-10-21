@@ -2,12 +2,12 @@ server:
   name: beta
   port: 10001
 dataSource:
-  host: 127.0.0.1
+  host: 192.168.32.191
   port: 3306
   maxPoolSize: 30
-  user: root
-  password: aggaer520
-  database: imooc
+  user: ptlppz
+  password: '123456'
+  database: pintuan
   connectTimeout: 10000
   queryTimeout: 8000
   maxConnectionRetries: 3
